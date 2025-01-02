@@ -1,6 +1,5 @@
-import {Text,View} from 'react-native'
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-
+import { Text, View } from "react-native";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -14,26 +13,28 @@ export default function MyTabs() {
   );
 }
 
-function SuggestedScreen(){
-    return (
-        <View>
-            <Text>This Is Suggested Screen</Text>
-        </View>
-    )
+function SuggestedScreen() {
+  return (
+    <View>
+      <Text className=" text-3xl text-blue-600 font-semibold">
+        This Is Suggested Screen
+      </Text>
+    </View>
+  );
 }
 
-function LikedScreen(){
-    return(
-        <View>
-            <Text> This is Liked Screen</Text>
-        </View>
-    )
+function LikedScreen() {
+  return (
+    <View>
+      <Text> This is Liked Screen</Text>
+    </View>
+  );
 }
 
-function LibraryScreen(){
-    return(
-        <View>
-            <Text> This is Library Screen</Text>
-        </View>
-    )
+function LibraryScreen() {
+  return (
+    <View>
+      <Text> This is Library Screen</Text>
+    </View>
+  );
 }
