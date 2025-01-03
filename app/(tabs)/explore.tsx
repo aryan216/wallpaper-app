@@ -1,16 +1,24 @@
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { useWallpaper, Wallpaper } from "@/hooks/useWallpaper";
+import { Dimensions } from "react-native";
+import { useState } from "react";
 import { useRef } from "react";
 import { View, Text, Button, Image, StyleSheet } from "react-native";
 import { Modalize } from "react-native-modalize";
 import { ImageCards } from "@/components/ImageCards";
+import AntDesign from "@expo/vector-icons/AntDesign"
+import { Link } from "expo-router";
 
 export default function Explore() {
-  const modalRef = useRef<Modalize>(null);
-
-  const openBottomSheet = () => {
+  const modalRef = useRef<Modalize>(null)
+  const [selected,setSelected]=useState<Wallpaper | null>(null)
+  const openBottomSheet = (wallpaper: Wallpaper) => {
+    console.log(wallpaper);
+    setSelected(wallpaper);
     modalRef.current?.open(); // Open the bottom sheet
   };
+  
+  const {height}=Dimensions.get('window')
   const wallpapers = useWallpaper();
   return (
     <View style={{ flex: 1 }}>
@@ -32,14 +40,14 @@ export default function Explore() {
           <View className="flex-1  ">
             {wallpapers.filter((_, index)=>index%2==0).map((w: Wallpaper) => (
               <View className="m-2 rounded-lg overflow-hidden w-full">
-                <ImageCards wallpaper={w} />
+                <ImageCards onPress={()=>openBottomSheet(w)} wallpaper={w} />
               </View>
             ))}
           </View>
           <View className="flex-1 ">
             {wallpapers.filter((_, index)=>index%2==1).map((w: Wallpaper) => (
               <View className="m-2 rounded-lg overflow-hidden w-full ">
-                <ImageCards wallpaper={w} />
+                <ImageCards onPress={()=>openBottomSheet(w)} wallpaper={w} />
               </View>
             ))}
           </View>
@@ -50,11 +58,32 @@ export default function Explore() {
       </ParallaxScrollView>
 
       {/* Modalize Bottom Sheet */}
-      {/* <Modalize ref={modalRef}>
-        <View style={{ padding: 20 }}>
-          <Text>This is the content of the bottom sheet!</Text>
+      <Modalize ref={modalRef} modalHeight={height*0.85}>
+        <View  >
+        {selected && (
+             <>
+               <Image 
+                 className="h-[50vh] w-full rounded-lg" 
+                 source={{ uri: selected.url }} 
+                 resizeMode="cover" 
+               />
+               <Text className="text-2xl font-bold mt-2 text-center">
+                 {selected.title}
+               </Text>
+
+               <Button title="Download image"/>
+
+               <View className="flex flex-row items-center mt-8 ml-6">
+                 <Image className="w-20 h-20 rounded-full " source={{uri:selected.creator_url}}/>
+                 <Text className="text-2xl text-grey-800 font-normal ml-6">{selected.creator}</Text>
+               </View>
+               <Text className="text-lg mt-2 ml-6">{selected.category}</Text>
+               <Text className="text-lg mt-2 ml-6">{selected.copyright}</Text>
+              
+             </>
+        )}
         </View>
-      </Modalize> */}
+      </Modalize>
     </View>
   );
 }

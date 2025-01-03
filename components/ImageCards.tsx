@@ -1,13 +1,18 @@
 import { Wallpaper } from "@/hooks/useWallpaper";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { ThemedText } from "./ThemedText";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useState } from "react";
 
-export function ImageCards({ wallpaper }: { wallpaper: Wallpaper }) {
+export function ImageCards({ wallpaper,onPress }: {
+   wallpaper: Wallpaper,
+   onPress:()=>void;
+
+   }) {
   const [liked, setLiked] = useState(false);
 
   return (
+    <Pressable onPress={onPress}>
     <View className=" relative">
       <Image
         style={styles.image}
@@ -26,12 +31,12 @@ export function ImageCards({ wallpaper }: { wallpaper: Wallpaper }) {
         </View>
       </View>
     </View>
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   image: {
-    
     height: 250,
   },
 });
