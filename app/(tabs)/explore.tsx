@@ -6,8 +6,7 @@ import { useRef } from "react";
 import { View, Text, Button, Image, StyleSheet } from "react-native";
 import { Modalize } from "react-native-modalize";
 import { ImageCards } from "@/components/ImageCards";
-import AntDesign from "@expo/vector-icons/AntDesign"
-import { Link } from "expo-router";
+
 
 export default function Explore() {
   const modalRef = useRef<Modalize>(null)

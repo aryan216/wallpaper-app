@@ -6,7 +6,7 @@ import "./globals.css";
 
 export default function Layout() {
   return (
-    <GestureHandlerRootView>
+    <GestureHandlerRootView >
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen
           name="(secgroup)/accountinfo"
